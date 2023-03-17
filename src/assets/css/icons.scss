@@ -1,0 +1,41 @@
+// ======== icon ==================
+@mixin icon($img, $w: 13px, $h: 13px, $mr: 4px) {
+  &.icon {
+    display: inline-block;
+    width: $w;
+    height: $h;
+    margin-right: $mr;
+    background-image: url($img);
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+}
+
+@mixin afterIcon($img, $w: 13px, $h: 13px, $mr: 4px) {
+  content: '';
+  display: inline-block;
+  width: $w;
+  height: $h;
+  margin-right: $mr;
+  background-image: url($img);
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.icon-root {
+  @include icon('../img/tree/root.png');
+}
+
+.icon-parent {
+  @include icon('../img/tree/parent.png');
+}
+
+.icon-child {
+  @include icon('../img/tree/child.png');
+}
+
+.icon-child-select {
+  @include icon('../img/tree/child-select.png');
+}
