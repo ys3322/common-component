@@ -2,18 +2,20 @@
   <div class="tree">
     <div class="left-tree">
       <el-tree
-        :data="dataArr"
+        :data="treeData"
         empty-text="empty tree"
         node-key="id"
         :props="defaultProps"
         default-expand-all
         highlight-current
+        :default-expanded-keys="defaultShowNodes"
         :current-node-key="currentNode"
-        show-checkbox
         expand-on-click-node
         check-on-click-node
         @node-click="handleNodeClick"
+        ref="treeRef"
       >
+        <!-- 利用作用域插槽，取出item项数据 -->
         <span class="custom-tree-node" slot-scope="{ node, data }">
           <span class="node-text" @click="handleNodeTextClick(node, data)">
             <!-- 根节点图标 -->
@@ -63,14 +65,15 @@ export default {
       },
       // 默认选中的节点
       currentNode: 0,
+      // 默认展开的节点的 key 的数组
+      defaultShowNodes: [],
     };
   },
   computed: {
-    dataArr() {
+    treeData() {
       const { guid } = this;
       let obj = {
         id: 0,
-
         label: "XXXXXXXX",
         children: [
           {
@@ -196,7 +199,26 @@ export default {
     },
   },
   created() {},
-  mounted() {},
+  mounted() {
+    this.$nextTick(() => {
+      // 递归获取深层数组的 第一个子元素
+      function getFirstChild(arr) {
+        // 当前数组的第一项，如果children 没有子元素，就返回第一项
+        if (!(arr[0].children && arr[0].children.length)) {
+          return arr[0];
+        } else {
+          // 否则继续在第一项的children中查找！
+          return getFirstChild(arr[0].children);
+        }
+      }
+      console.log(getFirstChild(this.treeData));
+      // 设置默认展开的节点
+      this.defaultShowNodes.push(getFirstChild(this.treeData).id);
+      // 设置默认选中的节点
+      this.$refs.treeRef.setCurrentKey(getFirstChild(this.treeData).id);
+      console.log("yangs=> ", this.defaultShowNodes);
+    });
+  },
   methods: {
     guid() {
       return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
