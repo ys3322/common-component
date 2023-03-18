@@ -6,7 +6,9 @@
 <script>
 export default {
   name: "Table7",
-  props: {},
+  props: {
+    item: Object,
+  },
   components: {},
   data() {
     return {
@@ -15,7 +17,9 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {},
+  created() {
+    console.log("yangs=> table:item", this.item);
+  },
   mounted() {},
   methods: {},
 };

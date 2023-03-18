@@ -1,31 +1,27 @@
 <template>
-  <div class="table">
+  <div class="ErrorComponent">
     <h2>{{ msg }}</h2>
   </div>
 </template>
 <script>
 export default {
-  name: "Table9",
-  props: {
-    item: Object,
-  },
+  name: "ErrorComponent",
+  props: {},
   components: {},
   data() {
     return {
-      msg: "table9",
+      msg: "找不到组件了...",
     };
   },
   computed: {},
   watch: {},
-  created() {
-    console.log("yangs=> table:item", this.item);
-  },
+  created() {},
   mounted() {},
   methods: {},
 };
 </script>
 <style scoped lang="scss">
-.table {
-  background-color: #ccc;
+.ErrorComponent {
+  background-color: #f1f1f1;
 }
 </style>

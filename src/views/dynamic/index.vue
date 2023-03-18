@@ -53,8 +53,12 @@
 </template>
 
 <script>
-import { getTreeData } from "../../api/test";
 import Vue from "vue";
+
+import LoadingComponent from "../../components/LoadingComponent.vue";
+import ErrorComponent from "../../components/ErrorComponent.vue";
+
+import { getTreeData } from "../../api/test";
 
 export default {
   name: "DynamicComponent",
@@ -76,11 +80,10 @@ export default {
   computed: {
     dynamicComponent() {
       if (this.currentRouter) {
-        Vue.component("async-" + this.currentRouter, (resolve, reject) => {
-          return import(
-            `../../components/dynamicComponent/${this.currentRouter}.vue`
-          );
-        });
+        Vue.component(
+          "async-" + this.currentRouter,
+          this.getAsyncComponent(this.currentRouter)
+        );
         return "async-" + this.currentRouter;
       }
       return null;
@@ -121,6 +124,26 @@ export default {
       this.item = item;
       console.log("yangs=> handleNodeClick:", item.router, item);
       this.currentRouter = item.router;
+    },
+
+    // 动态组件完整用法
+    // https://v2.cn.vuejs.org/v2/guide/components-dynamic-async.html?#%E5%A4%84%E7%90%86%E5%8A%A0%E8%BD%BD%E7%8A%B6%E6%80%81
+    getAsyncComponent(cpnStr) {
+      return () => ({
+        // 需要加载的组件 (应该是一个 `Promise` 对象)
+        component: import(
+          /* webpackChunkName: "abc"*/ `../../components/dynamicComponent/${cpnStr}.vue`
+        ),
+        // 异步组件加载时使用的组件
+        loading: LoadingComponent,
+        // 加载失败时使用的组件
+        error: ErrorComponent,
+        // 展示加载时组件的延时时间。默认值是 200 (毫秒)
+        delay: 0,
+        // 如果提供了超时时间且组件加载也超时了，
+        // 则使用加载失败时使用的组件。默认值是：`Infinity`
+        timeout: 3000,
+      });
     },
   },
 };
