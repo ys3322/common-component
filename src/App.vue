@@ -3,6 +3,7 @@
     <div class="nav-list">
       <router-link to="/">/</router-link>
       <router-link to="/tree">tree</router-link>
+      <router-link to="/dynamic">dynamic</router-link>
     </div>
     <div class="content">
       <router-view></router-view>

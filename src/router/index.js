@@ -6,12 +6,17 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    redirect: "/tree",
+    redirect: "/dynamic",
   },
   {
     name: "tree",
     path: "/tree",
     component: () => import("../views/tree/index.vue"),
+  },
+  {
+    name: "dynamic",
+    path: "/dynamic",
+    component: () => import("../views/dynamic/index.vue"),
   },
 ];
 

@@ -1,0 +1,68 @@
+.dynamic-component {
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+
+  .left-tree {
+    width: 255px;
+    height: 100%;
+    border-right: 1px solid #f1f1f1;
+    padding: 16px;
+
+
+  }
+
+  .right-table {
+    flex: 1;
+  }
+
+}
+
+:deep(.el-tree) {
+
+  .node-text {
+    display: flex;
+    align-items: center;
+
+    .label {
+
+      &.label-bold1 {
+        font-size: 14px;
+        letter-spacing: 1px;
+        color: #333333;
+        font-weight: bold;
+        font-family: "Microsoft Ya Hei";
+      }
+
+      &.label-bold2 {
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: #555555;
+        font-weight: bold;
+        font-family: "Microsoft Ya Hei";
+      }
+    }
+  }
+
+  // el-tree-node is-expanded is-current is-focusable
+  .el-tree-node {
+    .el-tree-node__content {
+      height: 40px;
+    }
+
+    &.is-current {
+      >.el-tree-node__content {
+
+        background-color: #e2fafa;
+        color: #44c7c6;
+        border: 1px solid #43e0df;
+        border-radius: 4px;
+        height: 28px;
+        margin-top: 6px;
+        margin-bottom: 6px;
+      }
+    }
+  }
+
+}
